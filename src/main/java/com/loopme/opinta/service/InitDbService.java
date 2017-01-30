@@ -1,38 +1,39 @@
-//package com.loopme.opinta.service;
-//
-//import com.loopme.opinta.enums.PhoneType;
-//import com.loopme.opinta.model.Client;
-//import com.loopme.opinta.model.Phone;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import javax.annotation.PostConstruct;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Service
-//public class InitDbService {
-//    @Autowired
-//    private ClientService clientService;
-//
-//    @PostConstruct
-//    public void init() {
-//        populateClients();
-//    }
-//
-//    public void populateClients() {
-//        List<Client> clients = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            Phone phone = new Phone();
-//            phone.setNumber("" + i + "-" + i + "-" + i);
-//            phone.setType(PhoneType.HOME);
-//            phone.setDescription("Some desc " + i);
-//            Client client = new Client();
-//            client.setName("Name " + i);
-//            client.setLastName("Lastname " + i);
-//            client.setPhone(phone);
-//            clients.add(client);
-//        }
-//        clients.stream().forEach(clientService::create);
-//    }
-//}
+package com.loopme.opinta.service;
+
+import com.loopme.opinta.model.Role;
+import com.loopme.opinta.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+@Service
+public class InitDbService {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
+    @PostConstruct
+    public void init() {
+        populateClients();
+    }
+
+    public void populateClients() {
+        Role roleUser = new Role();
+        roleUser.setName("ROLE_USER");
+        Role roleAdmin = new Role();
+        roleAdmin.setName("ROLE_ADMIN");
+        roleService.save(roleUser);
+        roleService.save(roleAdmin);
+
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("test");
+        user.setRoles(Stream.of(roleAdmin, roleUser).collect(Collectors.toSet()));
+
+        userService.save(user);
+    }
+}
