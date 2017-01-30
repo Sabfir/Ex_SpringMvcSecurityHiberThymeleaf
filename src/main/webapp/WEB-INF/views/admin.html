@@ -13,10 +13,16 @@
 </head>
 <body>
 <div class="container">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+
     <h2 th:text="'Welcome ' + ${username} + '!'"></h2>
     <tr th:each="role : ${roles}">
         <td th:text="${role}">role</td>
     </tr>
+
+    <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

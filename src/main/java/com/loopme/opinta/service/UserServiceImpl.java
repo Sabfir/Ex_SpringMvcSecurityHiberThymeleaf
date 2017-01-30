@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (user.getRole() == null) {
-            user.setRole(Role.PUBLISHER);
+            user.setRole(Role.ROLE_PUBLISHER);
         }
         userDao.save(user);
     }

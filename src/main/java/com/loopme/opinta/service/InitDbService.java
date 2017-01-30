@@ -35,19 +35,19 @@ public class InitDbService {
         User user = new User();
         user.setUsername("p");
         user.setPassword("p");
-        user.setRole(Role.PUBLISHER);
+        user.setRole(Role.ROLE_PUBLISHER);
         userService.save(user);
 
         user = new User();
         user.setUsername("o");
         user.setPassword("o");
-        user.setRole(Role.OPERATOR);
+        user.setRole(Role.ROLE_OPERATOR);
         userService.save(user);
 
         user = new User();
         user.setUsername("a");
         user.setPassword("a");
-        user.setRole(Role.ADMINISTRATOR);
+        user.setRole(Role.ROLE_ADMINISTRATOR);
         userService.save(user);
     }
 }
