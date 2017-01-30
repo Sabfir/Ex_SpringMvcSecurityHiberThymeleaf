@@ -1,11 +1,14 @@
 package com.loopme.opinta.model;
 
+import com.loopme.opinta.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +38,13 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
+//    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

@@ -13,15 +13,10 @@
 </head>
 <body>
 <div class="container">
-
     <h2 th:text="'Welcome ' + ${username} + '!'"></h2>
     <tr th:each="role : ${roles}">
         <td th:text="${role}">role</td>
     </tr>
-
-
-    <!--Logged user: <span sec:authentication="name">Bob</span>-->
-    <!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
