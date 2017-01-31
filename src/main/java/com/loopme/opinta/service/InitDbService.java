@@ -1,19 +1,23 @@
 package com.loopme.opinta.service;
 
+import com.loopme.opinta.enums.AppType;
+import com.loopme.opinta.enums.ContentType;
 import com.loopme.opinta.enums.Role;
-//import com.loopme.opinta.model.Role;
+import com.loopme.opinta.model.App;
 import com.loopme.opinta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class InitDbService {
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private RoleService roleService;
+    @Autowired
+    private AppService appService;
 
     @PostConstruct
     public void init() {
@@ -49,5 +53,19 @@ public class InitDbService {
         user.setPassword("a");
         user.setRole(Role.ROLE_ADMINISTRATOR);
         userService.save(user);
+
+        App app = new App();
+        app.setName("Add for IOS");
+        app.setAppType(AppType.IOS);
+        app.setUser(userService.findByUsername("p"));
+        app.setContentTypes(Stream.of(ContentType.VIDEO, ContentType.IMAGE).collect(Collectors.toSet()));
+        appService.save(app);
+
+        app = new App();
+        app.setName("Add for WEBSITE");
+        app.setAppType(AppType.WEBSITE);
+        app.setUser(userService.findByUsername("p"));
+        app.setContentTypes(Stream.of(ContentType.HTML).collect(Collectors.toSet()));
+        appService.save(app);
     }
 }

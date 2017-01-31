@@ -17,26 +17,12 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
 
-    <h2 th:text="'Welcome ' + ${username} + '!'"></h2>
-    <tr th:each="role : ${roles}">
-        <td th:text="${role}">role</td>
-    </tr>
+    <h2>Welcome Publisher</h2>
 
-    <h4><a th:href="@{/registration/role}">Create an account</a></h4>
+    <h4><a th:href="@{/app}">Create app</a></h4>
 
     <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
-
-    <!--<div sec:authorize="${hasAuthority('ROLE_ADMINISTRATOR')}" > IS ADMIN </div>-->
-    <!--<div sec:authorize="${hasAuthority('ROLE_OPERATOR')}" > IS OPERATOR </div>-->
-    <!--<div sec:authorize="${hasAuthority('ROLE_PUBLISHER2')}" > IS PUBLISHER </div>-->
-    <!--<div sec:authorize="${hasRole('ROLE_ADMINISTRATOR')}" > IS ADMIN </div>-->
-    <!--<div sec:authorize="${hasRole('ROLE_OPERATOR')}" > IS OPERATOR </div>-->
-    <!--<div sec:authorize="${hasRole('ROLE_PUBLISHER')}" > IS PUBLISHER </div>-->
-
-    <!--Logged user: <span sec:authentication="name">Bob</span>-->
-    <!--Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
 </div>
-<!-- /container -->
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
 <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>
