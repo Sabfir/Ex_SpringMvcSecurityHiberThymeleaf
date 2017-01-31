@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Advertising platform</title>
+
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/resources/css/common.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container form-signin">
+    <h2 class="form-signin-heading text-center">Choose role:</h2>
+    <h4 class="text-center"><a th:href="@{/registration/publisher}">Create Publisher</a></h4>
+    <h4 class="text-center"><a th:href="@{/registration/operator}">Create Operator</a></h4>
+    <h4 class="text-center"><a th:href="@{/registration/administrator}">Create Administrator</a></h4>
+    <!--<button class="btn btn-lg btn-primary btn-block" type="button" th:onclick="@{/registration/publisher}">Create Publisher</button>-->
+    <!--<button class="btn btn-lg btn-primary btn-block" type="button" th:onclick="@{/registration/operator}">Create Operator</button>-->
+    <!--<button class="btn btn-lg btn-primary btn-block" type="button" th:onclick="@{/registration/administrator}">Create Administrator</button>-->
+    <h4 class="text-center"><a th:href="@{/login}">Log in</a></h4>
+</div>
+<!-- /container -->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>

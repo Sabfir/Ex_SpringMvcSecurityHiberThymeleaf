@@ -1,6 +1,9 @@
 package com.loopme.opinta.controller;
 
+import com.loopme.opinta.enums.Role;
 import com.loopme.opinta.model.User;
+import com.loopme.opinta.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 @Controller
 public class MainController {
     private static String UNKNOWN = "unknown";
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
@@ -43,27 +48,54 @@ public class MainController {
         return "welcome";
     }
 
-//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-//    public String registration(Model model) {
-//        model.addAttribute("userForm", new User());
+    @RequestMapping(value = "/registration/role", method = RequestMethod.GET)
+    public String registration(Model model) {
+        return "registration_role";
+    }
+
+    @RequestMapping(value = "/registration/publisher", method = RequestMethod.GET)
+    public String registrationPublisher(Model model) {
+        User user = new User();
+        user.setRole(Role.ROLE_PUBLISHER);
+        model.addAttribute("user", user);
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration/operator", method = RequestMethod.GET)
+    public String registrationOperator(Model model) {
+        User user = new User();
+        user.setRole(Role.ROLE_OPERATOR);
+        model.addAttribute("user", user);
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration/administrator", method = RequestMethod.GET)
+    public String registrationAdministrator(Model model) {
+        User user = new User();
+        user.setRole(Role.ROLE_ADMINISTRATOR);
+        model.addAttribute("user", user);
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+//        userValidator.validate(userForm, bindingResult);
 //
-//        return "registration";
-//    }
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
 //
-//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-//    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-////        userValidator.validate(userForm, bindingResult);
-////
-////        if (bindingResult.hasErrors()) {
-////            return "registration";
-////        }
-////
-////        userService.save(userForm);
-////
-////        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+//        userService.save(userForm);
 //
-//        System.out.println("User: " + userForm);
-//
-//        return "redirect:/welcome";
-//    }
+//        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        System.out.println("User: " + user);
+
+        userService.save(user);
+
+        return "redirect:/welcome";
+    }
 }

@@ -11,6 +11,8 @@
         <intercept-url pattern="/" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
         <intercept-url pattern="/welcome" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
         <intercept-url pattern="/admin" access="hasRole('ADMINISTRATOR')"/>
+        <intercept-url pattern="/registration" access="permitAll" />
+        <intercept-url pattern="/login" access="permitAll" />
 
         <form-login
                 login-page="/login"
