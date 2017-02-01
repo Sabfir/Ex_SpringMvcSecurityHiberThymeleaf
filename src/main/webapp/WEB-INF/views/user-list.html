@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<head data-th-fragment="header">
+    <meta charset="utf-8" />
+	<link data-th-href="@{/resources/css/style.css}" rel="stylesheet" />
+    <link data-th-href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+	<title data-th-text="#{strategy.list.page.title}">Temp Title</title>
+</head>
+
+<body>
+<div class="container">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+    <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
+
+	<table class="box-table-a">
+		<caption data-th-text="#{user.list.table.title}">Temp table title</caption>
+		<thead>
+			<tr>
+				<th scope="col" data-th-text="#{user.list.name.label}">Temp Name</th>
+				<th scope="col" data-th-text="#{user.list.role.label}">Temp Role</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="app : ${user}">
+				<td data-th-text="${user.username}">Name</td>
+				<td data-th-text="${user.role}">Role</td>
+				<td><a href="#" data-th-href="@{/app/delete(id=${user.id})}">delete</a> |
+					<a href="#" data-th-href="@{/app/edit(id=${user.id})}">edit</a>
+				</td>
+			</tr>
+			<tr data-th-remove="all">
+				<td>2</td>
+				<td>Iron Condor</td>
+				<td>High Prob Hedged</td>
+				<td><a href="#">delete</a> | <a href="#">edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<form action="#" data-th-action="@{/user/add}" data-th-object="${user}" method="post">
+	<table class="box-table-a">
+		<caption data-th-text="#{user.list.add.title}">Add Title</caption>
+		<thead>
+			<tr>
+                <th data-th-text="#{user.list.name.label}">Name Label</th>
+                <th data-th-text="#{user.list.role.label}">Role Label</th>
+                <th data-th-text="#{user.list.password.label}">Password Label</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+                <td><input type="text" data-th-field="*{username}"/></td>
+				<td>
+                    <select data-th-field="*{role}">
+                        <option data-th-each="role : ${T(com.loopme.opinta.enums.Role).values()}"
+                                data-th-value="${role}"
+                                data-th-text="${role}">
+                        </option>
+                    </select>
+                </td>
+                <td><input type="password" data-th-field="*{password}"/></td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit" data-th-text="#{add.button.label}">Action</button>
+				</td>
+				<td></td>
+                <td></td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</div>
+<script data-th-src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
+<script data-th-src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>

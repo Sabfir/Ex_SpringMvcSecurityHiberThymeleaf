@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class AppController {
     private static String UNKNOWN = "unknown";
     @Autowired
     UserService userService;
@@ -104,31 +104,6 @@ public class Controller {
     }
 
 
-
-
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model) {
-        return "login";
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String welcome(Model model, Principal principal) {
-        if (principal == null) {
-            return "login";
-        }
-
-        Set<String> roles = ((UsernamePasswordAuthenticationToken) principal).getAuthorities().stream()
-                .map(Object::toString)
-                .collect(Collectors.toSet());
-//        if (roles.contains(Role.ROLE_OPERATOR.name())) {
-//            return "main-operator";
-//        } else if (roles.contains(Role.ROLE_PUBLISHER.name())) {
-//            return "redirect:/apps";
-//        }
-
-        return "redirect:/app/list";
-    }
 
 
 

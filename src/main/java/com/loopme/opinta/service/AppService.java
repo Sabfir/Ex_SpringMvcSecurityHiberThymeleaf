@@ -5,10 +5,10 @@ import com.loopme.opinta.model.App;
 import java.util.List;
 
 public interface AppService {
-    void save(App app);
     List<App> getAll();
-    List<App> getByUser(String username);
     App getById(Integer id);
+    List<App> getByUser(String username);
+    void save(App app);
     void update(App app);
     void delete(App app);
 }

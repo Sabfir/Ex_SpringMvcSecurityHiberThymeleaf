@@ -18,14 +18,14 @@ public class AppServiceImpl implements AppService {
 
     @Override
     @Transactional
-    public void save(App app) {
-        appDao.save(app);
+    public List<App> getAll() {
+        return appDao.getAll();
     }
 
     @Override
     @Transactional
-    public List<App> getAll() {
-        return appDao.getAll();
+    public App getById(Integer id) {
+        return appDao.getById(id);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class AppServiceImpl implements AppService {
 
     @Override
     @Transactional
-    public App getById(Integer id) {
-        return appDao.getById(id);
+    public void save(App app) {
+        appDao.save(app);
     }
 
     @Override

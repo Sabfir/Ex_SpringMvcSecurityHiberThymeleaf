@@ -18,17 +18,17 @@ public class AppDaoImpl implements AppDao {
     SessionFactory sessionFactory;
 
     @Override
-    public void save(App app) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(app);
-    }
-
-    @Override
     public List<App> getAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(App.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public App getById(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (App) session.get(App.class, id);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class AppDaoImpl implements AppDao {
     }
 
     @Override
-    public App getById(Integer id) {
+    public void save(App app) {
         Session session = sessionFactory.getCurrentSession();
-        return (App) session.get(App.class, id);
+        session.persist(app);
     }
 
     @Override

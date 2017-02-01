@@ -8,10 +8,26 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
     @Autowired
     SessionFactory sessionFactory;
+
+    @Override
+    public List<User> getAll() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(User.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
+    public User getById(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (User) session.get(User.class, id);
+    }
 
     @Override
     public User findByUsername(String username) {
@@ -25,5 +41,17 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(user);
+    }
+
+    @Override
+    public void update(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(user);
     }
 }
