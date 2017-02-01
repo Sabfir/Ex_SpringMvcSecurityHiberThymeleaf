@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<head data-th-fragment="header">
+    <meta charset="utf-8" />
+	<link type="text/css" rel="stylesheet" href="../../resources/css/style.css" data-th-href="@{/resources/css/style.css}"/>
+	<title data-th-text="#{strategy.list.page.title}">Title</title>
+</head>
+
+<body>
+<div>
+	<table class="box-table-a">
+		<caption data-th-text="#{strategy.list.table.title}">Temp table title</caption>
+		<thead>
+			<tr>
+				<th scope="col" data-th-text="#{strategy.list.name.label}">Temp Name</th>
+				<th scope="col" data-th-text="#{strategy.list.app_type.label}">Temp Type</th>
+				<th scope="col" data-th-text="#{strategy.list.content_type.label}">Temp Content type</th>
+                <th scope="col" data-th-text="#{strategy.list.user.label}">Temp User</th>
+                <th scope="col" data-th-text="#{strategy.list.actions.label}">Temp Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="app : ${apps}">
+				<td data-th-text="${app.name}">Name</td>
+				<td data-th-text="${app.appType}">Iron Type</td>
+				<td data-th-text="${app.contentTypes}">Triple Content</td>
+                <td data-th-text="${app.contentTypes}">Triple User</td>
+				<td><a href="#" data-th-href="@{/app/delete(id=${app.id})}">delete</a> |
+					<a href="#" data-th-href="@{/app/edit(id=${app.id})}">edit</a>
+				</td>
+			</tr>
+			<tr data-th-remove="all">
+				<td>2</td>
+				<td>Iron Condor</td>
+				<td>High Prob Hedged</td>
+				<td><a href="#">delete</a> | <a href="#">edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<form action="#" data-th-action="@{/app/add}" data-th-object="${app}" method="post">
+	<table class="box-table-a">
+		<caption data-th-text="#{strategy.list.add.title}">Add Title</caption>
+		<thead>
+			<tr>
+				<th data-th-text="#{strategy.list.app_type.label}">Type Label</th>
+				<th data-th-text="#{strategy.list.name.label}">Name Label</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" hidden="hidden" data-th-field="*{id}"/>
+				    <input type="text" data-th-field="*{appType}"/></td>
+				<td><input type="text" data-th-field="*{name}"/></td>
+			</tr>
+			<tr>
+				<td>
+					<button type="submit" data-th-text="#{add.button.label}">Action</button>
+				</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</div>
+</body>
+</html>

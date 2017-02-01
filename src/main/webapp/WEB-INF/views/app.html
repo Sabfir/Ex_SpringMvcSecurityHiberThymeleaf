@@ -30,6 +30,12 @@
                 </option>
             </select>
 
+            <select class="form-control" name="contentTypes" multiple="multiple" >
+                <option th:each="contentType : ${T(com.loopme.opinta.enums.ContentType).values()}"
+                        th:value="${contentType}"
+                        th:text="${contentType}">Content type</option>
+            </select>
+
             <p th:if="${error}" th:text="${error}"/>
         </div>
 

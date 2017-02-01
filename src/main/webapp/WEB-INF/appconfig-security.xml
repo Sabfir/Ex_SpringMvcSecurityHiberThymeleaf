@@ -14,13 +14,15 @@
         <intercept-url pattern="/admin" access="hasRole('ADMINISTRATOR')"/>
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/registration/role" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/registration/publisher" access="hasAnyRole('OPERATOR, ADMINISTRATOR')"/>
+        <intercept-url pattern="/registration/publisher" access="hasAnyRole('OPERATOR', 'ADMINISTRATOR')"/>
         <intercept-url pattern="/registration/operator" access="hasRole('ADMINISTRATOR')"/>
         <intercept-url pattern="/registration/administrator" access="hasRole('ADMINISTRATOR')"/>
+        <intercept-url pattern="/app" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
+        <intercept-url pattern="/apps" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
 
         <form-login
                 login-page="/login"
-                default-target-url="/welcome"
+                default-target-url="/app/list"
                 authentication-failure-url="/login?error"
                 username-parameter="username"
                 password-parameter="password"/>

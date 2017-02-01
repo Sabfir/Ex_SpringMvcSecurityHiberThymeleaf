@@ -64,8 +64,14 @@ public class InitDbService {
         app = new App();
         app.setName("Add for WEBSITE");
         app.setAppType(AppType.WEBSITE);
-        app.setUser(userService.findByUsername("p"));
+        app.setUser(userService.findByUsername("o"));
         app.setContentTypes(Stream.of(ContentType.HTML).collect(Collectors.toSet()));
+        appService.save(app);
+
+        app = new App();
+        app.setName("Add for Android");
+        app.setAppType(AppType.ANDROID);
+        app.setUser(userService.findByUsername("a"));
         appService.save(app);
     }
 }
