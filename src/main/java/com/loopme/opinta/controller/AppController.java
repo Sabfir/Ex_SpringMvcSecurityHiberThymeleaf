@@ -63,7 +63,19 @@ public class AppController {
     }
 
     @RequestMapping(value="/app/edit", method=RequestMethod.GET)
-    public ModelAndView editStrategyPage(@RequestParam(value="id", required=true) Integer id) {
+    public ModelAndView editStrategyPage(@RequestParam(value="id", required=true) Integer id, Principal principal) {
+        if (principal == null) {
+            return new ModelAndView("redirect:/login");
+        }
+        Set<String> roles = ((UsernamePasswordAuthenticationToken) principal).getAuthorities().stream()
+                .map(Object::toString)
+                .collect(Collectors.toSet());
+        if (roles.contains(Role.ROLE_PUBLISHER.name())) {
+            if (!appService.isCreatedByUser(id, principal.getName())) {
+                throw new IllegalArgumentException("Publisher can edit his own Apps only!");
+            }
+        }
+
         ModelAndView modelAndView = new ModelAndView("app-edit");
         App app = appService.getById(id);
         modelAndView.addObject("app", app);

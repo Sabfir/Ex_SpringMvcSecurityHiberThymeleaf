@@ -13,12 +13,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <form id="logoutForm" method="POST" data-th-action="@{/logout}">
+            <form id="logoutForm" method="POST" data-th-action="@{/logout} " >
                 <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}" />
-                <button class="btn btn-link" type="submit">Logout</button>
+                <button class="btn btn-link" type="submit">Logout (<span sec:authentication="name" />)</button>
             </form>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" sec:authorize="${!hasRole('ROLE_ADMINISTRATOR')}">
             <form method="GET" data-th-action="@{/app/list}">
                 <button class="btn btn-link" type="submit">Switch to Apps</button>
             </form>
@@ -54,7 +54,7 @@
             </table>
 
             <div data-th-classappend="${param.error == null || param.error == '' ? '' : 'has-error'}">
-                <span data-th-if="${param.error}" data-th-text="${{param.error}}"/>
+                <span class="alert alert-danger" data-th-if="${param.error}" data-th-text="${{param.error}}"/>
             </div>
 
             <form action="#" data-th-action="@{/user/add}" data-th-object="${user}" method="post">

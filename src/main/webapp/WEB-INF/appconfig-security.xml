@@ -9,20 +9,23 @@
 
     <!--<http auto-config="true" use-expressions="true">-->
     <http auto-config="true">
-        <intercept-url pattern="/" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/welcome" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/admin" access="hasRole('ADMINISTRATOR')"/>
+        <!--<intercept-url pattern="/" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/welcome" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/admin" access="hasRole('ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/login" access="permitAll" />-->
+        <!--<intercept-url pattern="/registration/role" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/registration/publisher" access="hasAnyRole('OPERATOR', 'ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/registration/operator" access="hasRole('ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/registration/administrator" access="hasRole('ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/app" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>-->
+        <!--<intercept-url pattern="/apps" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>-->
         <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/registration/role" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/registration/publisher" access="hasAnyRole('OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/registration/operator" access="hasRole('ADMINISTRATOR')"/>
-        <intercept-url pattern="/registration/administrator" access="hasRole('ADMINISTRATOR')"/>
-        <intercept-url pattern="/app" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
-        <intercept-url pattern="/apps" access="hasAnyRole('PUBLISHER', 'OPERATOR', 'ADMINISTRATOR')"/>
+        <intercept-url pattern="/app/*" access="hasAnyRole('OPERATOR', 'PUBLISHER')" />
+        <intercept-url pattern="/user/*" access="hasAnyRole('OPERATOR', 'ADMINISTRATOR')" />
 
         <form-login
                 login-page="/login"
-                default-target-url="/app/list"
+                default-target-url="/"
                 authentication-failure-url="/login?error"
                 username-parameter="username"
                 password-parameter="password"/>

@@ -5,6 +5,7 @@ import com.loopme.opinta.enums.ContentType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,6 +24,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 public class App {
     @Id
     @GeneratedValue

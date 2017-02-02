@@ -3,6 +3,7 @@ package com.loopme.opinta.service;
 import com.loopme.opinta.dao.AppDao;
 import com.loopme.opinta.dao.UserDao;
 import com.loopme.opinta.model.App;
+import com.loopme.opinta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,5 +51,14 @@ public class AppServiceImpl implements AppService {
     @Transactional
     public void delete(App app) {
         appDao.delete(app);
+    }
+
+    @Override
+    @Transactional
+    public boolean isCreatedByUser(Integer id, String username) {
+        User user = userDao.findByUsername(username);
+        App app = getById(id);
+
+        return app.getUser().equals(user);
     }
 }

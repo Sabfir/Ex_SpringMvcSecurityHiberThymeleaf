@@ -1,6 +1,7 @@
 package com.loopme.opinta.model;
 
 import com.loopme.opinta.enums.Role;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,6 +24,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString
 public class User {
     @Id

@@ -11,4 +11,5 @@ public interface AppService {
     void save(App app);
     void update(App app);
     void delete(App app);
+    boolean isCreatedByUser(Integer id, String username);
 }
