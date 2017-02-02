@@ -5,16 +5,16 @@
     <meta charset="utf-8" />
     <link data-th-href="@{/resources/css/style.css}" rel="stylesheet" />
     <link data-th-href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
-	<title data-th-text="#{strategy.edit.page.title}">Temp Title</title>
+	<title data-th-text="#{app.edit.page.title}">Temp Title</title>
 </head>
 <body>
 <div class="container">
 	<form action="#" data-th-action="@{/app/edit}" data-th-object="${app}" method="post">
 	<table class="box-table-a">
-		<caption data-th-text="#{strategy.edit.form.title}">Add Title</caption>
+		<caption data-th-text="#{app.edit.form.title}">Add Title</caption>
 		<tbody>
             <tr>
-                <td data-th-text="#{strategy.list.name.label}">Temp Name</td>
+                <td data-th-text="#{app.list.name.label}">Temp Name</td>
                 <td>
                     <input type="text" hidden="hidden" data-th-value="*{id}" data-th-field="*{id}" />
                     <input type="text" hidden="hidden" data-th-value="*{user.id}" data-th-field="*{user.id}" />
@@ -22,7 +22,7 @@
                 </td>
             </tr>
             <tr>
-                <td data-th-text="#{strategy.list.app_type.label}">Temp Type</td>
+                <td data-th-text="#{app.list.app_type.label}">Temp Type</td>
                 <td>
                     <select data-th-field="*{appType}">
                         <option data-th-each="appType : ${T(com.loopme.opinta.enums.AppType).values()}"
@@ -33,7 +33,7 @@
                 </td>
             </tr>
             <tr>
-                <td data-th-text="#{strategy.list.content_type.label}">Content Type Label</td>
+                <td data-th-text="#{app.list.content_type.label}">Content Type Label</td>
                 <td>
                     <select data-th-field="*{contentTypes}" multiple="multiple" data-th-size="3" >
                         <option data-th-each="contentType : ${T(com.loopme.opinta.enums.ContentType).values()}"
@@ -56,8 +56,8 @@
 	</table>
 	</form>
 </div>
-<script data-th-src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
-<script data-th-src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
 			

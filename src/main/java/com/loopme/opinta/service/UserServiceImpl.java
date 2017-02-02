@@ -1,6 +1,7 @@
 package com.loopme.opinta.service;
 
 //import com.loopme.opinta.dao.RoleDao;
+import com.loopme.opinta.dao.AppDao;
 import com.loopme.opinta.dao.UserDao;
 import com.loopme.opinta.enums.Role;
 //import com.loopme.opinta.model.Role;
@@ -16,6 +17,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private AppDao appDao;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -55,7 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(User user) {
+        if (!appDao.getByUser(user).isEmpty()) {
+            throw new IllegalArgumentException("Can't delete user! Please delete user's applications first!");
+        }
+
         userDao.delete(user);
     }
 }

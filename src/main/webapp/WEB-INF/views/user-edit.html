@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head data-th-fragment="header">
+    <meta charset="utf-8" />
+    <link data-th-href="@{/resources/css/style.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <title data-th-text="#{user.edit.page.title}">Temp Title</title>
+</head>
+<body>
+<div class="container">
+	<form action="#" data-th-action="@{/user/edit}" data-th-object="${user}" method="post">
+	<table class="box-table-a">
+		<caption data-th-text="#{user.edit.form.title}">Add Title</caption>
+		<tbody>
+            <tr>
+                <td data-th-text="#{user.list.name.label}">Temp Name</td>
+                <td>
+                    <input type="text" hidden="hidden" data-th-value="*{id}" data-th-field="*{id}" />
+                    <input type="text" data-th-value="*{username}" data-th-field="*{username}" />
+                </td>
+            </tr>
+            <tr>
+                <td data-th-text="#{user.list.role.label}">Temp Role</td>
+                <td>
+                    <select data-th-field="*{role}">
+                        <option data-th-each="role : ${T(com.loopme.opinta.enums.Role).values()}"
+                                data-th-value="${role}"
+                                data-th-text="${role}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+			<tr>
+				<td>
+					<button type="submit" name="action" value="save" data-th-text="#{update.button.label}">save</button>
+				</td>
+				<td>
+					<button type="submit" name="action" value="cancel" data-th-text="#{cancel.button.label}">cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
+			

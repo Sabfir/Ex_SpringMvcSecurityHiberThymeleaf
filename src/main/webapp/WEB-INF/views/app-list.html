@@ -5,92 +5,101 @@
 <head data-th-fragment="header">
     <meta charset="utf-8" />
 	<link data-th-href="@{/resources/css/style.css}" rel="stylesheet" />
-    <link data-th-href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
-	<title data-th-text="#{strategy.list.page.title}">Temp Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <title data-th-text="#{app.list.page.title}">Temp Title</title>
 </head>
 
 <body>
 <div class="container">
-    <form id="logoutForm" method="POST" th:action="@{/logout}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    </form>
-    <a href="#" onclick="document.forms['logoutForm'].submit()">Logout</a>
+    <div class="row">
+        <div class="col-md-2">
+            <form id="logoutForm" method="POST" data-th-action="@{/logout}">
+                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}" />
+                <button class="btn btn-link" type="submit">Logout</button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form method="GET" data-th-action="@{/user/list}">
+                <button class="btn btn-link" type="submit">Switch to Users</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="box-table-a">
+                <caption data-th-text="#{app.list.table.title}">Temp table title</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" data-th-text="#{app.list.name.label}">Temp Name</th>
+                        <th scope="col" data-th-text="#{app.list.app_type.label}">Temp Type</th>
+                        <th scope="col" data-th-text="#{app.list.content_type.label}">Temp Content type</th>
+                        <th scope="col" data-th-text="#{app.list.user.label}">Temp User</th>
+                        <th scope="col" data-th-text="#{app.list.actions.label}">Temp Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="app : ${apps}">
+                        <td data-th-text="${app.name}">Name</td>
+                        <td data-th-text="${app.appType}">Iron Type</td>
+                        <td data-th-text="${app.contentTypes}">Triple Content</td>
+                        <td data-th-text="${app.user.username}">Triple User</td>
+                        <td><a href="#" data-th-href="@{/app/delete(id=${app.id})}">delete</a> |
+                            <a href="#" data-th-href="@{/app/edit(id=${app.id})}">edit</a>
+                        </td>
+                    </tr>
+                    <tr data-th-remove="all">
+                        <td>2</td>
+                        <td>Iron Condor</td>
+                        <td>High Prob Hedged</td>
+                        <td><a href="#">delete</a> | <a href="#">edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
 
-	<table class="box-table-a">
-		<caption data-th-text="#{strategy.list.table.title}">Temp table title</caption>
-		<thead>
-			<tr>
-				<th scope="col" data-th-text="#{strategy.list.name.label}">Temp Name</th>
-				<th scope="col" data-th-text="#{strategy.list.app_type.label}">Temp Type</th>
-				<th scope="col" data-th-text="#{strategy.list.content_type.label}">Temp Content type</th>
-                <th scope="col" data-th-text="#{strategy.list.user.label}">Temp User</th>
-                <th scope="col" data-th-text="#{strategy.list.actions.label}">Temp Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr data-th-each="app : ${apps}">
-				<td data-th-text="${app.name}">Name</td>
-				<td data-th-text="${app.appType}">Iron Type</td>
-				<td data-th-text="${app.contentTypes}">Triple Content</td>
-                <td data-th-text="${app.user.username}">Triple User</td>
-				<td><a href="#" data-th-href="@{/app/delete(id=${app.id})}">delete</a> |
-					<a href="#" data-th-href="@{/app/edit(id=${app.id})}">edit</a>
-				</td>
-			</tr>
-			<tr data-th-remove="all">
-				<td>2</td>
-				<td>Iron Condor</td>
-				<td>High Prob Hedged</td>
-				<td><a href="#">delete</a> | <a href="#">edit</a></td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<form action="#" data-th-action="@{/app/add}" data-th-object="${app}" method="post">
-	<table class="box-table-a">
-		<caption data-th-text="#{strategy.list.add.title}">Add Title</caption>
-		<thead>
-			<tr>
-                <th data-th-text="#{strategy.list.name.label}">Name Label</th>
-                <th data-th-text="#{strategy.list.app_type.label}">Type Label</th>
-                <th data-th-text="#{strategy.list.content_type.label}">Content Type Label</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-                <td><input type="text" data-th-field="*{name}"/></td>
-				<td>
-                    <select data-th-field="*{appType}">
-                        <option data-th-each="appType : ${T(com.loopme.opinta.enums.AppType).values()}"
-                                data-th-value="${appType}"
-                                data-th-text="${appType}">
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <select data-th-field="*{contentTypes}" multiple="multiple" data-th-size="3" >
-                        <option data-th-each="contentType : ${T(com.loopme.opinta.enums.ContentType).values()}"
-                                data-th-value="${contentType}"
-                                data-th-text="${contentType}">
-                        </option>
-                    </select>
-                </td>
-			</tr>
-			<tr>
-				<td>
-					<button type="submit" data-th-text="#{add.button.label}">Action</button>
-				</td>
-				<td></td>
-                <td></td>
-			</tr>
-		</tbody>
-	</table>
-	</form>
-    <form method="GET" data-th-action="@{/user/list}">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Manage users</button>
-    </form>
+            <form action="#" data-th-action="@{/app/add}" data-th-object="${app}" method="post">
+            <table class="box-table-a">
+                <caption data-th-text="#{app.list.add.title}">Add Title</caption>
+                <thead>
+                    <tr>
+                        <th data-th-text="#{app.list.name.label}">Name Label</th>
+                        <th data-th-text="#{app.list.app_type.label}">Type Label</th>
+                        <th data-th-text="#{app.list.content_type.label}">Content Type Label</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" data-th-field="*{name}"/></td>
+                        <td>
+                            <select data-th-field="*{appType}">
+                                <option data-th-each="appType : ${T(com.loopme.opinta.enums.AppType).values()}"
+                                        data-th-value="${appType}"
+                                        data-th-text="${appType}">
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select data-th-field="*{contentTypes}" multiple="multiple" data-th-size="3" >
+                                <option data-th-each="contentType : ${T(com.loopme.opinta.enums.ContentType).values()}"
+                                        data-th-value="${contentType}"
+                                        data-th-text="${contentType}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" data-th-text="#{add.button.label}">Action</button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
 </div>
-<script data-th-src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js}"></script>
-<script data-th-src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -44,3 +44,7 @@ caption {
 	background: #d0dafd;
 	color: #339;
 }
+
+.has-error {
+    color: red
+}
