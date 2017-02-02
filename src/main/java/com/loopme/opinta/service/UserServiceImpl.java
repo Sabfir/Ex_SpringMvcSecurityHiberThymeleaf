@@ -3,6 +3,7 @@ package com.loopme.opinta.service;
 import com.loopme.opinta.dao.AppDao;
 import com.loopme.opinta.dao.UserDao;
 import com.loopme.opinta.enums.Role;
+import com.loopme.opinta.exception.InsufficientPermissionException;
 import com.loopme.opinta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user, String username) {
         User currentUser = userDao.findByUsername(username);
         if (currentUser.getRole().equals(Role.ROLE_OPERATOR) && !user.getRole().equals(Role.ROLE_PUBLISHER)) {
-            throw new IllegalArgumentException("Can't create " + user.getRole() + ". Operator can create only Publishers");
+            throw new InsufficientPermissionException("Can't create " + user.getRole() + ". Operator can create only Publishers");
         }
         saveAnonymously(user);
     }
@@ -66,30 +67,29 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void update(Principal principal, User user) {
-        canEdit(principal, user);
+        checkPermission(principal, user);
         userDao.update(user);
     }
 
     @Override
     @Transactional
     public void delete(Principal principal, User user) {
-        canEdit(principal, user);
+        checkPermission(principal, user);
         if (!appDao.getByUser(user).isEmpty()) {
-            throw new IllegalArgumentException("Can't delete user! Please delete user's applications first!");
+            throw new InsufficientPermissionException("Can't delete user! Please delete user's applications first!");
         }
         userDao.delete(user);
     }
 
     @Override
     @Transactional
-    public boolean canEdit(Principal principal, User user) {
+    public void checkPermission(Principal principal, User user) {
         if (findByUsername(principal.getName()).getId().equals(user.getId())) {
-            throw new IllegalArgumentException("You can't change your own account");
+            throw new InsufficientPermissionException("You can't change your own account");
         }
         if (hasRole(principal, Role.ROLE_OPERATOR) && !user.getRole().equals(Role.ROLE_PUBLISHER)) {
-            throw new IllegalArgumentException("Can't work with " + user.getRole() + ". Operator can work with Publishers only");
+            throw new InsufficientPermissionException("Can't work with " + user.getRole() + ". Operator can work with Publishers only");
         }
-        return true;
     }
 
     @Override

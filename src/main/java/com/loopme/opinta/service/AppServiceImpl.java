@@ -2,6 +2,7 @@ package com.loopme.opinta.service;
 
 import com.loopme.opinta.dao.AppDao;
 import com.loopme.opinta.enums.Role;
+import com.loopme.opinta.exception.InsufficientPermissionException;
 import com.loopme.opinta.model.App;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,14 +45,14 @@ public class AppServiceImpl implements AppService {
     @Override
     @Transactional
     public void update(Principal principal, App app) {
-        canEdit(principal, app);
+        checkPermission(principal, app);
         appDao.update(app);
     }
 
     @Override
     @Transactional
     public void delete(Principal principal, App app) {
-        canEdit(principal, app);
+        checkPermission(principal, app);
         appDao.delete(app);
     }
 
@@ -66,10 +67,9 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public boolean canEdit(Principal principal, App app) {
+    public void checkPermission(Principal principal, App app) {
         if (userService.hasRole(principal, Role.ROLE_PUBLISHER) && !isCreatedByUser(app, principal.getName())) {
-            throw new IllegalArgumentException("Publisher can work with his own Apps only!");
+            throw new InsufficientPermissionException("Publisher can work with his own Apps only!");
         }
-        return true;
     }
 }

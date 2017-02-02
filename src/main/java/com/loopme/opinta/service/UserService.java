@@ -14,6 +14,6 @@ public interface UserService {
     void saveAnonymously(User user);
     void update(Principal principal, User user);
     void delete(Principal principal, User user);
-    boolean canEdit(Principal principal, User user);
+    void checkPermission(Principal principal, User user);
     boolean hasRole(Principal principal, Role role);
 }

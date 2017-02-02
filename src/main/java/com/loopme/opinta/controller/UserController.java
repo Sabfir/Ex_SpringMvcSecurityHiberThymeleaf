@@ -1,5 +1,6 @@
 package com.loopme.opinta.controller;
 
+import com.loopme.opinta.exception.InsufficientPermissionException;
 import com.loopme.opinta.model.User;
 import com.loopme.opinta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("redirect:/user/list");
         try {
             userService.save(user, principal.getName());
-        } catch (Exception e) {
+        } catch (InsufficientPermissionException e) {
             modelAndView.addObject("error", e.getMessage());
         }
         return modelAndView;
@@ -44,8 +45,8 @@ public class UserController {
         User user = userService.getById(id);
 
         try {
-            userService.canEdit(principal, user);
-        } catch (Exception e) {
+            userService.checkPermission(principal, user);
+        } catch (InsufficientPermissionException e) {
             modelAndView.addObject("error", e.getMessage());
             return modelAndView;
         }
@@ -65,7 +66,7 @@ public class UserController {
 
         try {
             userService.update(principal, user);
-        } catch (Exception e) {
+        } catch (InsufficientPermissionException e) {
             modelAndView = new ModelAndView("user-edit");
             modelAndView.addObject("user", user);
             modelAndView.addObject("error", e.getMessage());
@@ -81,7 +82,7 @@ public class UserController {
 
         try {
             userService.delete(principal, user);
-        } catch (Exception e) {
+        } catch (InsufficientPermissionException e) {
             modelAndView.addObject("error", e.getMessage());
         }
         return modelAndView;

@@ -14,5 +14,5 @@ public interface AppService {
     void delete(Principal principal, App app);
     boolean isCreatedByUser(Integer id, String username);
     boolean isCreatedByUser(App app, String username);
-    boolean canEdit(Principal principal, App app);
+    void checkPermission(Principal principal, App app);
 }

@@ -1,6 +1,7 @@
 package com.loopme.opinta.controller;
 
 import com.loopme.opinta.enums.Role;
+import com.loopme.opinta.exception.InsufficientPermissionException;
 import com.loopme.opinta.model.App;
 import com.loopme.opinta.service.AppService;
 import com.loopme.opinta.service.UserService;
@@ -54,8 +55,8 @@ public class AppController {
         App app = appService.getById(id);
 
         try {
-            appService.canEdit(principal, app);
-        } catch (Exception e) {
+            appService.checkPermission(principal, app);
+        } catch (InsufficientPermissionException e) {
             modelAndView.addObject("error", e.getMessage());
             return modelAndView;
         }
@@ -75,7 +76,7 @@ public class AppController {
 
         try {
             appService.update(principal, app);
-        } catch (Exception e) {
+        } catch (InsufficientPermissionException e) {
             modelAndView = new ModelAndView("app-edit");
             modelAndView.addObject("app", app);
             modelAndView.addObject("error", e.getMessage());
@@ -91,7 +92,7 @@ public class AppController {
 
         try {
             appService.delete(principal, app);
-        } catch (Exception e) {
+        } catch (InsufficientPermissionException e) {
             modelAndView.addObject("error", e.getMessage());
         }
         return modelAndView;
