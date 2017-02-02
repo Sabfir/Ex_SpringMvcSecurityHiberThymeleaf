@@ -11,16 +11,6 @@
 
 <body>
 <div class="container">
-    <!--<div sec:authentication="name"></div> &lt;!&ndash; works fine &ndash;&gt;-->
-    <!--<div sec:authentication="principal.authorities"></div> &lt;!&ndash; works fine &ndash;&gt;-->
-    <!--<div  sec:authorize="isAuthenticated()" >true</div> &lt;!&ndash; works fine &ndash;&gt;-->
-    <!--<div  sec:authorize="${hasRole('ROLE_ADMINISTRATOR')}" > IS ADMIN </div> &lt;!&ndash; works work &ndash;&gt;-->
-    <!--<div  sec:authorize="${!hasRole('ROLE_ADMINISTRATOR')}" > IS NOT ADMIN </div> &lt;!&ndash; works work &ndash;&gt;-->
-    <!--<div  sec:authorize="${hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_OPERATOR')}" > IS ADMIN OR OPERATOR</div> &lt;!&ndash; works work &ndash;&gt;-->
-    <!--<span th:text="${#authorization.expression('isAuthenticated()')}"></span> &lt;!&ndash; works fine &ndash;&gt;-->
-    <!--<div th:text="${#vars.ROLE_ADMINISTRATOR}"></div> &lt;!&ndash;Works fine &ndash;&gt;-->
-    <!--<div th:text="${#authorization.expression('hasRole(''ROLE_ADMINISTRATOR'')')} "></div> &lt;!&ndash; works work &ndash;&gt;-->
-
     <div class="row">
         <div class="col-md-2">
             <form id="logoutForm" method="POST" data-th-action="@{/logout} " >
@@ -56,12 +46,6 @@
                         <td><a href="#" data-th-href="@{/app/delete(id=${app.id})}">delete</a> |
                             <a href="#" data-th-href="@{/app/edit(id=${app.id})}">edit</a>
                         </td>
-                    </tr>
-                    <tr data-th-remove="all">
-                        <td>2</td>
-                        <td>Iron Condor</td>
-                        <td>High Prob Hedged</td>
-                        <td><a href="#">delete</a> | <a href="#">edit</a></td>
                     </tr>
                 </tbody>
             </table>

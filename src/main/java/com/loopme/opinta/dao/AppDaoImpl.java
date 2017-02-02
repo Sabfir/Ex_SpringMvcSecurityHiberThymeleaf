@@ -17,6 +17,7 @@ public class AppDaoImpl implements AppDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<App> getAll() {
         Session session = sessionFactory.getCurrentSession();
@@ -31,6 +32,7 @@ public class AppDaoImpl implements AppDao {
         return (App) session.get(App.class, id);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<App> getByUser(User user) {
         Session session = sessionFactory.getCurrentSession();

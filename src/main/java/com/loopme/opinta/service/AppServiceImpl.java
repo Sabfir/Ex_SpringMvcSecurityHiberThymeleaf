@@ -1,13 +1,13 @@
 package com.loopme.opinta.service;
 
 import com.loopme.opinta.dao.AppDao;
-import com.loopme.opinta.dao.UserDao;
+import com.loopme.opinta.enums.Role;
 import com.loopme.opinta.model.App;
-import com.loopme.opinta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -15,7 +15,7 @@ public class AppServiceImpl implements AppService {
     @Autowired
     private AppDao appDao;
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Override
     @Transactional
@@ -32,7 +32,7 @@ public class AppServiceImpl implements AppService {
     @Override
     @Transactional
     public List<App> getByUser(String username) {
-        return appDao.getByUser(userDao.findByUsername(username));
+        return appDao.getByUser(userService.findByUsername(username));
     }
 
     @Override
@@ -43,22 +43,33 @@ public class AppServiceImpl implements AppService {
 
     @Override
     @Transactional
-    public void update(App app) {
+    public void update(Principal principal, App app) {
+        canEdit(principal, app);
         appDao.update(app);
     }
 
     @Override
     @Transactional
-    public void delete(App app) {
+    public void delete(Principal principal, App app) {
+        canEdit(principal, app);
         appDao.delete(app);
     }
 
     @Override
-    @Transactional
     public boolean isCreatedByUser(Integer id, String username) {
-        User user = userDao.findByUsername(username);
-        App app = getById(id);
+        return isCreatedByUser(getById(id), username);
+    }
 
-        return app.getUser().equals(user);
+    @Override
+    public boolean isCreatedByUser(App app, String username) {
+        return app.getUser().getId().equals(userService.findByUsername(username).getId());
+    }
+
+    @Override
+    public boolean canEdit(Principal principal, App app) {
+        if (userService.hasRole(principal, Role.ROLE_PUBLISHER) && !isCreatedByUser(app, principal.getName())) {
+            throw new IllegalArgumentException("Publisher can work with his own Apps only!");
+        }
+        return true;
     }
 }

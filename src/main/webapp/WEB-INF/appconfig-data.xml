@@ -44,13 +44,6 @@
                 <value>${jdbc.username}</value>
                 <value>--password</value>
                 <value>${jdbc.password}</value>
-
-                <!--<value>&#45;&#45;url</value>-->
-                <!--<value>jdbc:hsqldb:mem:test_db</value>-->
-                <!--<value>&#45;&#45;user</value>-->
-                <!--<value>sa</value>-->
-                <!--<value>&#45;&#45;password</value>-->
-                <!--<value />-->
             </list>
         </property>
     </bean>

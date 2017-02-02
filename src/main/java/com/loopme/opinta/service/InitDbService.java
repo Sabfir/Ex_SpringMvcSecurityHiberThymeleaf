@@ -14,12 +14,10 @@ import java.util.stream.Stream;
 
 @Service
 public class InitDbService {
-//    private static String CRED_PUBLISHER = "Publisher Ivanov";
-//    private static String CRED_OPERATOR = "Operator Petrov";
-//    private static String CRED_ADMINISTRATOR = "Admin Sidorov";
-    private static String CRED_PUBLISHER = "p";
-    private static String CRED_OPERATOR = "o";
-    private static String CRED_ADMINISTRATOR = "a";
+    private static String CRED_PUBLISHER = "Publisher_Ivanov";
+    private static String CRED_OPERATOR = "Operator_Petrov";
+    private static String CRED_ADMINISTRATOR = "Admin_Sidorov";
+    private static String EMAIL_DOMAIN = "@gmail.com";
     @Autowired
     private UserService userService;
     @Autowired
@@ -34,20 +32,23 @@ public class InitDbService {
         User user = new User();
         user.setUsername(CRED_PUBLISHER);
         user.setPassword(CRED_PUBLISHER);
+        user.setEmail(CRED_PUBLISHER + EMAIL_DOMAIN);
         user.setRole(Role.ROLE_PUBLISHER);
-        userService.save(user);
+        userService.saveAnonymously(user);
 
         user = new User();
         user.setUsername(CRED_OPERATOR);
         user.setPassword(CRED_OPERATOR);
+        user.setEmail(CRED_OPERATOR + EMAIL_DOMAIN);
         user.setRole(Role.ROLE_OPERATOR);
-        userService.save(user);
+        userService.saveAnonymously(user);
 
         user = new User();
         user.setUsername(CRED_ADMINISTRATOR);
         user.setPassword(CRED_ADMINISTRATOR);
+        user.setEmail(CRED_ADMINISTRATOR + EMAIL_DOMAIN);
         user.setRole(Role.ROLE_ADMINISTRATOR);
-        userService.save(user);
+        userService.saveAnonymously(user);
 
         App app = new App();
         app.setName("Add for IOS");

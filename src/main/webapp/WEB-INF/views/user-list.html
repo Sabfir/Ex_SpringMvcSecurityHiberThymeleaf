@@ -32,6 +32,7 @@
                 <thead>
                     <tr>
                         <th scope="col" data-th-text="#{user.list.name.label}">Temp Name</th>
+                        <th scope="col" data-th-text="#{user.list.email.label}">Temp Email</th>
                         <th scope="col" data-th-text="#{user.list.role.label}">Temp Role</th>
                         <th scope="col" data-th-text="#{user.list.actions.label}">Temp Actions</th>
                     </tr>
@@ -39,16 +40,11 @@
                 <tbody>
                     <tr data-th-each="user : ${users}">
                         <td data-th-text="${user.username}">Name</td>
+                        <td data-th-text="${user.email}">Email</td>
                         <td data-th-text="${user.role}">Role</td>
                         <td><a href="#" data-th-href="@{/user/delete(id=${user.id})}">delete</a> |
                             <a href="#" data-th-href="@{/user/edit(id=${user.id})}">edit</a>
                         </td>
-                    </tr>
-                    <tr data-th-remove="all">
-                        <td>2</td>
-                        <td>Iron Condor</td>
-                        <td>High Prob Hedged</td>
-                        <td><a href="#">delete</a> | <a href="#">edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -63,6 +59,7 @@
                 <thead>
                     <tr>
                         <th data-th-text="#{user.list.name.label}">Name Label</th>
+                        <th data-th-text="#{user.list.email.label}">Email Label</th>
                         <th data-th-text="#{user.list.role.label}">Role Label</th>
                         <th data-th-text="#{user.list.password.label}">Password Label</th>
                     </tr>
@@ -70,6 +67,7 @@
                 <tbody>
                     <tr>
                         <td><input type="text" data-th-field="*{username}"/></td>
+                        <td><input type="text" data-th-field="*{email}"/></td>
                         <td>
                             <select data-th-field="*{role}">
                                 <option data-th-each="role : ${T(com.loopme.opinta.enums.Role).values()}"
@@ -84,6 +82,7 @@
                         <td>
                             <button type="submit" data-th-text="#{add.button.label}">Action</button>
                         </td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>

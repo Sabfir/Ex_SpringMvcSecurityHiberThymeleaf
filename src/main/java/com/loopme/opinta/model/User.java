@@ -30,21 +30,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "username")
     private String username;
-    @Column(name = "password")
     private String password;
-    @Transient
-    private String confirmPassword;
     private String email;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
-//    private Set<Role> roles;
     @Enumerated(EnumType.STRING)
     private Role role;
 }

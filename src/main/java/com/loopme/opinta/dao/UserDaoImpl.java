@@ -15,6 +15,7 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<User> getAll() {
         Session session = sessionFactory.getCurrentSession();
